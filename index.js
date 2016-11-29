@@ -8,7 +8,7 @@ function getUserInput(callback){
     {
       name: 'data',
       type: 'input',
-      message: 'What would you like to do next?',
+      message: 'What would you like to do?',
       validate: function(value){
         if(value.length){
           return true;
@@ -22,7 +22,7 @@ Inquirer.prompt(question).then(callback);
 }
 
 function getLatestMovies() {
-  console.log("Here are the lattest movies");
+  console.log("Here are the latest movies");
   console.log("*****************************");
   return Axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=' + apiKey )
   .then(function(data) {
@@ -52,11 +52,14 @@ function processInput(obj){
       return getLatestMovies()
     case 'top rated':
       return getTopRated()
+    case 'end' :
+      console.log("Thanks for visiting. Goodbye!!!");
+      break;
     case 'help':
-       console.log("Here are the commands you can use.\n* 'latest movies' - for all the latest movies\n* 'top rated' - for most rated movies\n\n");
+       console.log("Here are the commands you can use.\n* 'latest movies' - for all the latest movies\n* 'top rated' - for most rated movies\n* 'end' - to do nothing\n\n");
       return getUserInput(processInput)
     default:
-       console.log("Invalid input. Here are the commands you can use.\n* 'latest movies' - for all the latest movies\n* 'top rated' - for most rated movies\n\n");
+       console.log("Invalid input. Here are the commands you can use.\n* 'latest movies' - for all the latest movies\n* 'top rated' - for most rated movies\n* 'end' - to do nothing\n\n");
       return getUserInput(processInput)
   }
 }
